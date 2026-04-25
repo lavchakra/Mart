@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lav Mart</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <h2>🛍️ Lav Mart</h2>
+    <p id="userDisplay"></p>
+</div>
+
+<h1>🛒 Welcome to Lav Mart</h1>
+
+<!-- Products -->
+<div class="products">
+
+    <div class="card">
+        <h3>Aloo Bhujia</h3>
+        <p>₹30</p>
+        <button onclick="addToCart('Aloo Bhujia', 30)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Bikaneri Bhujia</h3>
+        <p>₹35</p>
+        <button onclick="addToCart('Bikaneri Bhujia', 35)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Ratlami Sev</h3>
+        <p>₹25</p>
+        <button onclick="addToCart('Ratlami Sev', 25)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Nylon Sev</h3>
+        <p>₹28</p>
+        <button onclick="addToCart('Nylon Sev', 28)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Khatta Meetha Mix</h3>
+        <p>₹40</p>
+        <button onclick="addToCart('Khatta Meetha Mix', 40)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Bombay Mix</h3>
+        <p>₹45</p>
+        <button onclick="addToCart('Bombay Mix', 45)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Navratan Mixture</h3>
+        <p>₹50</p>
+        <button onclick="addToCart('Navratan Mixture', 50)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Chivda (Poha Mix)</h3>
+        <p>₹35</p>
+        <button onclick="addToCart('Chivda (Poha Mix)', 35)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Moong Dal Namkeen</h3>
+        <p>₹30</p>
+        <button onclick="addToCart('Moong Dal Namkeen', 30)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Masala Peanuts</h3>
+        <p>₹35</p>
+        <button onclick="addToCart('Masala Peanuts', 35)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Salted Peanuts</h3>
+        <p>₹28</p>
+        <button onclick="addToCart('Salted Peanuts', 28)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Hing Sev</h3>
+        <p>₹32</p>
+        <button onclick="addToCart('Hing Sev', 32)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Tikha Sev</h3>
+        <p>₹30</p>
+        <button onclick="addToCart('Tikha Sev', 30)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Cornflakes Mixture</h3>
+        <p>₹40</p>
+        <button onclick="addToCart('Cornflakes Mixture', 40)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Dry Fruit Mixture</h3>
+        <p>₹80</p>
+        <button onclick="addToCart('Dry Fruit Mixture', 80)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Bhakarwadi</h3>
+        <p>₹25</p>
+        <button onclick="addToCart('Bhakarwadi', 25)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Mini Samosa Namkeen</h3>
+        <p>₹35</p>
+        <button onclick="addToCart('Mini Samosa Namkeen', 35)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Papdi Gathiya</h3>
+        <p>₹28</p>
+        <button onclick="addToCart('Papdi Gathiya', 28)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Methi Mathri</h3>
+        <p>₹32</p>
+        <button onclick="addToCart('Methi Mathri', 32)">Add</button>
+    </div>
+
+    <div class="card">
+        <h3>Jeera Khari Mix</h3>
+        <p>₹36</p>
+        <button onclick="addToCart('Jeera Khari Mix', 36)">Add</button>
+    </div>
+
+</div>
+
+<!-- Cart -->
+<h2>🛒 Cart</h2>
+<ul id="cart"></ul>
+
+<div class="cart-summary">
+    <h3>Total: ₹<span id="total">0</span></h3>
+    
+    <div class="payment-form" id="paymentForm" style="display:none;">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="tel" id="phone" placeholder="Phone Number" required>
+        
+        <!-- Payment Method Selection -->
+        <div class="payment-methods">
+            <label>
+                <input type="radio" name="paymentMethod" value="razorpay" checked>
+                💳 Razorpay (Card/Online)
+            </label>
+            <label>
+                <input type="radio" name="paymentMethod" value="upi">
+                📱 UPI (QR Code)
+            </label>
+        </div>
+        
+        <!-- Razorpay Button -->
+        <button id="razorpayBtn" onclick="processRazorpayPayment()">Pay with Razorpay</button>
+        
+        <!-- UPI QR Button -->
+        <button id="upiBtn" style="display:none;" onclick="generateUPIQR()">Generate UPI QR Code</button>
+    </div>
+    
+    <!-- QR Code Display -->
+    <div id="qrCodeContainer" style="display:none; background: white; padding: 20px; border-radius: 8px; max-width: 400px; margin: 20px auto;">
+        <h3>📱 Scan QR Code to Pay</h3>
+        <img id="qrCodeImage" src="" alt="UPI QR Code" style="width: 250px; height: 250px; margin: 20px 0; border: 2px solid #ddd; padding: 10px;">
+        <p id="qrMessage"></p>
+        <button onclick="confirmUPIPayment()" style="background: green; width: 100%; margin-top: 10px;">✅ Payment Done</button>
+        <button onclick="backToPayment()" style="background: gray; width: 100%; margin-top: 10px;">← Back</button>
+    </div>
+    
+    <button id="payButton" onclick="showPaymentForm()">Proceed to Checkout</button>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

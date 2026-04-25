@@ -1,0 +1,303 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial;
+    background: linear-gradient(to right, #74ebd5, #9face6);
+    text-align: center;
+    padding: 20px;
+}
+
+.navbar {
+    background: #222;
+    color: rgb(123, 117, 5);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.navbar p {
+    margin: 0;
+    color: #790909;
+    font-size: 12px;
+}
+
+h1 {
+    color: #333;
+    margin: 20px 0;
+}
+
+h2 {
+    color: #333;
+    margin-top: 30px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.card {
+    width: 200px;
+    background: rgb(219, 17, 78);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card h3 {
+    color: rgb(18, 205, 234);
+    margin: 10px 0;
+}
+
+.card p {
+    color: #ffd700;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+button {
+    padding: 10px 20px;
+    background: rgb(173, 22, 125);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: rgb(200, 30, 150);
+}
+
+#cart {
+    list-style: none;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#cart li {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.cart-summary {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-summary h3 {
+    color: #333;
+    margin: 15px 0;
+    font-size: 24px;
+}
+
+.payment-form {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+}
+
+.payment-form input[type="email"],
+.payment-form input[type="tel"] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.payment-form input:focus {
+    outline: none;
+    border-color: rgb(173, 22, 125);
+    box-shadow: 0 0 5px rgba(173, 22, 125, 0.5);
+}
+
+/* Payment Methods Selection */
+.payment-methods {
+    margin: 20px 0;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    border: 2px solid #eee;
+}
+
+.payment-methods label {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}
+
+.payment-methods input[type="radio"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.payment-form button {
+    width: 100%;
+    padding: 12px;
+    background: rgb(34, 139, 34);
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.payment-form button:hover {
+    background: rgb(50, 180, 50);
+}
+
+#payButton {
+    width: 200px;
+    padding: 12px 30px;
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .products {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .card {
+        width: 250px;
+    }
+}
+
+.card {
+    width: 220px;
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+.card img {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #ff7a18;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #0a7a89;
+}
+li {
+    list-style: none;
+    margin: 20px;
+    background: rgb(159, 73, 73);
+    padding: 10px;
+    border-radius: 8px;
+}
+li {
+    list-style: none;
+    margin: 10px;
+    background: rgb(44, 127, 88);
+    padding: 10px;
+    border-radius: 8px;
+}li {
+    list-style: none;
+    margin: 10px auto;
+    width: 250px;
+    background: rgb(238, 121, 4);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li button {
+    background: rgb(67, 117, 47);
+    color: rgb(125, 94, 10);
+    border: none;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+button {
+    background: rgb(15, 112, 59);
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 7cm;
+}from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app == FastAPI()
+
+# Allow frontend to connect
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Sample product data
+products = [
+    {"name": "Water Bottle", "price": 20},
+    {"name": "Chips", "price": 30},
+    {"name": "Cold Drink", "price": 50}
+]
+
+@app.get("/")
+def home():
+    return {"message": "Backend is running 🚀"}
+
+@app.get("/products")
+def get_products():
+    return products
