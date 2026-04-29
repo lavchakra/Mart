@@ -10,10 +10,10 @@ Simple snack shop demo with a Node/Express backend:
 
 ```bash
 npm install
-PORT=3001 npm start
+PORT=3002 npm start
 ```
 
-Open `http://localhost:3001/`.
+Open `http://127.0.0.1:3002/`.
 
 ## Environment
 

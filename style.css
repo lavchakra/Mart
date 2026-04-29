@@ -33,26 +33,15 @@ h2 {
 }
 
 .products {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    margin-top: 30px;
-    padding: 20px;
+    /* Using CSS Grid defined at the bottom */
 }
 
 .card {
-    width: 200px;
-    background: rgb(219, 17, 78);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s;
+    /* Main card styling defined at the bottom */
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    /* Card hover defined at the bottom */
 }
 
 .card h3 {
@@ -96,6 +85,9 @@ button:hover {
     padding: 12px;
     border-bottom: 1px solid #eee;
     text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .cart-summary {
@@ -187,117 +179,58 @@ button:hover {
 }
 
 @media (max-width: 768px) {
-    .products {
+    .navbar {
         flex-direction: column;
-        align-items: center;
+        gap: 15px;
+    }
+    
+    .products {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 15px;
+        padding: 10px;
     }
     
     .card {
-        width: 250px;
+        width: auto;
+        padding: 15px;
+    }
+    
+    #payButton {
+        width: 100%;
     }
 }
 
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
 .card {
-    width: 220px;
     background: white;
-    padding: 15px;
+    padding: 20px;
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .card:hover {
-    transform: scale(1.05);
-}
-.card img {
-    width: 100%;
-    height: 150px;
-    border-radius: 10px;
-    object-fit: cover;
-}
-button {
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    background: #ff7a18;
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
 }
 
-button:hover {
-    background: #0a7a89;
-}
 li {
-    list-style: none;
-    margin: 20px;
-    background: rgb(159, 73, 73);
-    padding: 10px;
-    border-radius: 8px;
-}
-li {
-    list-style: none;
-    margin: 10px;
-    background: rgb(44, 127, 88);
-    padding: 10px;
-    border-radius: 8px;
-}li {
     list-style: none;
     margin: 10px auto;
-    width: 250px;
-    background: rgb(238, 121, 4);
-    padding: 10px;
+    background: white;
+    padding: 12px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px gray;
+    border-bottom: 1px solid #eee;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
-li button {
-    background: rgb(67, 117, 47);
-    color: rgb(125, 94, 10);
-    border: none;
-    padding: 5px 8px;
-    border-radius: 5px;
-    cursor: pointer;
-}.products {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-button {
-    background: rgb(15, 112, 59);
-    color: white;
-    padding: 8px;
-    border: none;
-    border-radius: 7cm;
-}from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-
-app == FastAPI()
-
-# Allow frontend to connect
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Sample product data
-products = [
-    {"name": "Water Bottle", "price": 20},
-    {"name": "Chips", "price": 30},
-    {"name": "Cold Drink", "price": 50}
-]
-
-@app.get("/")
-def home():
-    return {"message": "Backend is running 🚀"}
-
-@app.get("/products")
-def get_products():
-    return products
