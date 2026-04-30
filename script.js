@@ -631,13 +631,28 @@ async function loadProductsFrontEnd() {
         priceHtml = `₹${p.price}`;
       }
       
-      const btnName = p.badge ? `${p.name} (${p.badge.replace(/[^\\w\\s]/gi, '').trim()})` : p.name;
+      let imageUrl = p.image || 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=400&q=80';
+      const lowerName = p.name.toLowerCase();
+      if (!p.image) {
+        if (lowerName.includes('bhujia') || lowerName.includes('sev') || lowerName.includes('fafda') || lowerName.includes('ganthiya')) {
+          imageUrl = 'https://images.unsplash.com/photo-1589301760014-d929f39ce9de?auto=format&fit=crop&w=400&q=80';
+        } else if (lowerName.includes('peanut')) {
+          imageUrl = 'https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?auto=format&fit=crop&w=400&q=80';
+        } else if (lowerName.includes('mix') || lowerName.includes('chivda')) {
+          imageUrl = 'https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=400&q=80';
+        } else if (lowerName.includes('chips')) {
+          imageUrl = 'https://images.unsplash.com/photo-1621852004158-f3bc188ace2d?auto=format&fit=crop&w=400&q=80';
+        }
+      }
+      
+      const btnName = p.badge ? `${p.name} (${p.badge.replace(/[^\w\s]/gi, '').trim()})` : p.name;
       
       card.innerHTML = `
         ${badgeHtml}
-        <h3 style="margin-top: ${p.badge && p.badge.includes('DEAL') ? '15px' : '10px'};">${p.name}</h3>
+        <img src="${imageUrl}" alt="${p.name}" class="product-img">
+        <h3 style="margin-top: ${p.badge && p.badge.includes('DEAL') ? '5px' : '10px'};">${p.name}</h3>
         <p>${priceHtml}</p>
-        <button onclick="addToCart('${btnName}', ${p.price})">Add</button>
+        <button onclick="addToCart('${btnName}', ${p.price})" class="add-btn">Add to Cart</button>
       `;
       
       container.appendChild(card);
