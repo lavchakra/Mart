@@ -452,7 +452,26 @@ let products = [
   { id: "p2", name: "Bikaneri Bhujia", price: 35 },
   { id: "p3", name: "Ratlami Sev", price: 25 },
   { id: "p4", name: "Nylon Sev", price: 28 },
-  { id: "p5", name: "Dry Fruit Mixture (Deal)", price: 55, originalPrice: 80, badge: "⏳ LIMITED TIME DEAL", badgeColor: "#333", badgeBg: "#ffc107", borderColor: "#ffc107" }
+  { id: "p5", name: "Khatta Meetha Mix", price: 40 },
+  { id: "p6", name: "Bombay Mix", price: 45 },
+  { id: "p7", name: "Navratan Mixture", price: 50 },
+  { id: "p8", name: "Chivda (Poha Mix)", price: 35 },
+  { id: "p9", name: "Moong Dal Namkeen", price: 30 },
+  { id: "p10", name: "Masala Peanuts", price: 35 },
+  { id: "p11", name: "Salted Peanuts", price: 28 },
+  { id: "p12", name: "Hing Sev", price: 32 },
+  { id: "p13", name: "Tikha Sev", price: 30 },
+  { id: "p14", name: "Cornflakes Mixture", price: 40 },
+  { id: "p15", name: "Dry Fruit Mixture (Deal)", price: 55, originalPrice: 80, badge: "⏳ LIMITED TIME DEAL", badgeColor: "#333", badgeBg: "#ffc107", borderColor: "#ffc107" },
+  { id: "p16", name: "Bhakarwadi", price: 25 },
+  { id: "p17", name: "Mini Samosa Namkeen", price: 35 },
+  { id: "p18", name: "Papdi Gathiya", price: 28 },
+  { id: "p19", name: "Methi Mathri", price: 32 },
+  { id: "p20", name: "Jeera Khari Mix", price: 36 },
+  { id: "p21", name: "Fafda", price: 40, badge: "⭐ POPULAR", badgeBg: "#17a2b8", badgeColor: "white" },
+  { id: "p22", name: "Banana Chips", price: 45 },
+  { id: "p23", name: "Soya Sticks", price: 30 },
+  { id: "p24", name: "Ganthiya", price: 35 }
 ];
 
 // In loadPersistedData, we could also load products if we saved them
