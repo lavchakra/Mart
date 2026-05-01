@@ -1,0 +1,9 @@
+⚠️  Warning: Running without SSL. For HTTPS, place key.pem and cert.pem in the root directory.
+🛒 Lav Mart Server running at http://127.0.0.1:3002
+👨‍💻 Admin Panel at: http://127.0.0.1:3002/admin.html
+
+💳 Payment Methods:
+  1️⃣  Razorpay: Key 
+  2️⃣  UPI QR Code: Scan to pay
+
+🧪 Test Razorpay Card: 4111 1111 1111 1111 | Any future date | Any CVV

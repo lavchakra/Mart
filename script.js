@@ -73,6 +73,7 @@ function saveCart(cart) {
 // Display user ID and auth state
 document.addEventListener('DOMContentLoaded', () => {
   updateUserUI();
+  attachProductClickEvents();
   
   // Add payment method change listener
   const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
@@ -660,6 +661,7 @@ async function loadProductsFrontEnd() {
     
     // Now that product H3s exist, we can inject reviews
     loadReviewSummaries();
+    attachProductClickEvents();
   } catch (e) {
     console.error('Failed to load products', e);
     container.innerHTML = '<p style="grid-column: 1 / -1; color: red;">Error loading products. Please try again later.</p>';
@@ -676,16 +678,25 @@ function updateUserUI() {
   const ordersBtn = document.getElementById('ordersBtn');
   const logoutBtn = document.getElementById('logoutBtn');
   
+  const landingPage = document.getElementById('landingPage');
+  const storeContent = document.getElementById('storeContent');
+  
   if (currentUser) {
     userDisplay.textContent = `Welcome, ${currentUser.name || currentUser.email.split('@')[0]}!`;
     loginBtn.style.display = 'none';
     ordersBtn.style.display = 'inline-block';
     logoutBtn.style.display = 'inline-block';
+    
+    if (landingPage) landingPage.style.display = 'none';
+    if (storeContent) storeContent.style.display = 'block';
   } else {
-    userDisplay.textContent = `Guest Session: ${anonymousUserId.substring(0, 8)}...`;
+    userDisplay.textContent = '';
     loginBtn.style.display = 'inline-block';
     ordersBtn.style.display = 'none';
     logoutBtn.style.display = 'none';
+    
+    if (landingPage) landingPage.style.display = 'flex';
+    if (storeContent) storeContent.style.display = 'none';
   }
 }
 
@@ -980,3 +991,67 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// --- Product Details Modal Logic ---
+let selectedProductDetails = null;
+let selectedProductQty = 1;
+
+function openProductDetails(name, price, img) {
+    selectedProductDetails = { name, price, img };
+    selectedProductQty = 1;
+    
+    document.getElementById('pdName').textContent = name;
+    document.getElementById('pdPrice').textContent = '₹' + price;
+    document.getElementById('pdImage').src = img;
+    document.getElementById('pdQty').textContent = selectedProductQty;
+    
+    document.getElementById('productDetailsModal').style.display = 'flex';
+}
+
+function closeProductDetails() {
+    document.getElementById('productDetailsModal').style.display = 'none';
+}
+
+function updatePdQty(change) {
+    selectedProductQty += change;
+    if (selectedProductQty < 1) selectedProductQty = 1;
+    document.getElementById('pdQty').textContent = selectedProductQty;
+}
+
+function confirmPdAddToCart() {
+    if (!selectedProductDetails) return;
+    
+    // Add multiple items based on quantity
+    for(let i = 0; i < selectedProductQty; i++) {
+        addToCart(selectedProductDetails.name, selectedProductDetails.price);
+    }
+    
+    closeProductDetails();
+    alert(`Added ${selectedProductQty}x ${selectedProductDetails.name} to cart!`);
+}
+
+function attachProductClickEvents() {
+    document.querySelectorAll('.card').forEach(card => {
+        if(card.dataset.hasClick) return;
+        card.dataset.hasClick = "true";
+        
+        card.style.cursor = 'pointer';
+        card.onclick = (e) => {
+            if(e.target.tagName.toLowerCase() === 'button') return;
+            
+            const nameEl = card.querySelector('h3');
+            const imgEl = card.querySelector('img');
+            const priceEl = card.querySelectorAll('span')[1] || card.querySelector('p');
+            
+            const name = nameEl ? nameEl.textContent : 'Item';
+            const img = imgEl ? imgEl.src : 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=400&q=80';
+            
+            let price = 0;
+            if (priceEl && priceEl.textContent) {
+                price = parseInt(priceEl.textContent.replace(/[^0-9]/g, '')) || 0;
+            }
+            
+            openProductDetails(name, price, img);
+        };
+    });
+}
