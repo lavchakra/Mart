@@ -29,51 +29,38 @@
         </div>
     </div>
 
-    <div id="landingPage" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 75vh;">
-        <h1 style="font-size: 4rem; margin-bottom: 10px;">Welcome to Lav Mart</h1>
-        <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px;">Discover the best Indian snacks, sweets, and namkeen. Join us today!</p>
-        <button onclick="showAuthModal()" style="font-size: 1.2rem; padding: 15px 40px; border-radius: 50px;">Login / Sign Up to Shop</button>
+    <div id="landingPage" style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 80vh; text-align: center;">
+        <h1 data-reveal>Taste the Tradition of <span style="background: var(--premium-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Indian Flavors</span></h1>
+        <p data-reveal style="margin: 1.5rem 0 2.5rem;">Experience the finest selection of handpicked Indian snacks, sweets, and namkeen. Freshness delivered to your doorstep.</p>
+        <div data-reveal>
+            <button onclick="showAuthModal()">Start Shopping Today</button>
+        </div>
     </div>
 
-    <div id="storeContent" style="display: none;">
-    <h1>🛒 Welcome to Mart</h1>
+    <div id="storeContent" style="display: none; padding-top: 2rem;">
+    <h2 style="text-align: center; margin-bottom: 3rem;">Explore Our Collection</h2>
 
     <!-- Offers & Discounts -->
-    <div
-        style="background: #e3f2fd; padding: 20px; margin: 20px auto; border-radius: 10px; max-width: 900px; text-align: center; border: 2px dashed #007bff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-        <h2 style="margin-top: 0; color: #0056b3;">🎁 Offers & Discounts</h2>
-        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-top: 15px;">
-            <div
-                style="background: white; padding: 15px; border-radius: 8px; flex: 1; min-width: 250px; max-width: 300px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h4 style="margin: 0 0 10px 0; color: #d81b60;">🎟️ Coupon Codes</h4>
-                <p style="margin: 0; font-size: 14px; color: #333;">Use code <strong
-                        style="background: #f8f9fa; padding: 2px 5px; border-radius: 3px; border: 1px solid #ddd; color: #d81b60;">LAV10</strong>
-                    for 10% OFF<br><br>Use code <strong
-                        style="background: #f8f9fa; padding: 2px 5px; border-radius: 3px; border: 1px solid #ddd; color: #d81b60;">FESTIVAL50</strong>
-                    for ₹50 OFF</p>
-            </div>
-            <div
-                style="background: white; padding: 15px; border-radius: 8px; flex: 1; min-width: 250px; max-width: 300px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h4 style="margin: 0 0 10px 0; color: #dc3545;">🔥 "Sale" Badges</h4>
-                <p style="margin: 0; font-size: 14px; color: #333;">Look for items with the red <strong
-                        style="background: #dc3545; color: white; padding: 2px 5px; border-radius: 3px;">SALE!</strong>
-                    badge for instant, automatic price drops on your favorite snacks.</p>
-            </div>
-            <div
-                style="background: white; padding: 15px; border-radius: 8px; flex: 1; min-width: 250px; max-width: 300px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <h4 style="margin: 0 0 10px 0; color: #d39e00;">⏳ Limited-Time Deals</h4>
-                <p style="margin: 0; font-size: 14px; color: #333;">Grab items with the <strong
-                        style="color: #d39e00;">golden border</strong> before the deal ends! These special discounts
-                    won't last long.</p>
-            </div>
+    <div class="offers-grid">
+        <div class="offer-card" data-reveal>
+            <h4>🎟️ Exclusive Coupons</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Use <strong style="color: var(--primary);">LAV10</strong> for 10% OFF or <strong style="color: var(--primary);">FESTIVAL50</strong> for ₹50 OFF on your first order.</p>
+        </div>
+        <div class="offer-card" data-reveal style="background: var(--primary-light); border-color: var(--primary);">
+            <h4 style="color: var(--primary-dark);">🔥 Flash Sale</h4>
+            <p style="font-size: 0.9rem; color: var(--primary-dark); opacity: 0.8;">Grab your favorites at unbeatable prices. Look for the <span style="font-weight: 800;">SALE!</span> badge on selected items.</p>
+        </div>
+        <div class="offer-card" data-reveal>
+            <h4>⏳ Limited Deals</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Don't miss out on our special golden border deals! High quality snacks at a fraction of the cost.</p>
         </div>
     </div>
 
     <!-- Products -->
     <div class="products" id="productsContainer">
-        <p style="grid-column: 1 / -1; font-size: 18px; color: #666;">Loading amazing snacks for you...</p>
+        <p style="grid-column: 1 / -1; font-size: 18px; color: #666;">Curating the best snacks for you...</p>
     </div>
-    <div class="products">
+    <div class="products" style="display: none;">
 
         <div class="card" style="position: relative;">
             <div
@@ -210,108 +197,91 @@
     <h2>🛒 Cart</h2>
     <ul id="cart"></ul>
 
-    <div class="cart-summary">
-        <h3 id="totalHeader">Total: ₹<span id="total">0</span></h3>
+    <div class="cart-summary" style="max-width: 800px; margin: 3rem auto; background: white; padding: 2.5rem; border-radius: 24px; box-shadow: var(--shadow-xl); border: 1px solid rgba(0,0,0,0.03);" data-reveal>
+        <h3 id="totalHeader" style="font-size: 2rem; font-weight: 800; margin-bottom: 2rem; font-family: 'Outfit', sans-serif;">Total: ₹<span id="total">0</span></h3>
         <input type="hidden" id="finalAmount" value="0">
 
-        <!-- Coupon Code Section -->
-        <div id="couponSection" style="margin: 15px 0; display: flex; flex-direction: column; align-items: flex-start;">
-            <div style="display: flex; gap: 10px; width: 100%;">
-                <input type="text" id="couponCode" placeholder="Promo Code (e.g., LAV10)"
-                    style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; text-transform: uppercase;">
-                <button onclick="applyCoupon()"
-                    style="background: #17a2b8; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Apply</button>
+        <!-- Coupon Section -->
+        <div id="couponSection" style="margin-bottom: 2rem; background: var(--bg-main); padding: 1.5rem; border-radius: 16px;">
+            <p style="font-weight: 700; font-size: 0.9rem; margin-bottom: 1rem;">Apply Discount Code</p>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="couponCode" placeholder="Promo Code" style="flex: 1; text-transform: uppercase;">
+                <button onclick="applyCoupon()" style="background: var(--accent); color: white; padding: 0 1.5rem; border-radius: 8px;">Apply</button>
             </div>
-            <p id="couponMessage" style="margin: 5px 0 0 0; font-size: 13px; font-weight: bold;"></p>
-            <button id="removeCouponBtn" onclick="removeCoupon()"
-                style="display: none; background: transparent; border: none; color: #dc3545; text-decoration: underline; padding: 0; margin-top: 5px; cursor: pointer; font-size: 12px;">Remove
-                Coupon</button>
+            <p id="couponMessage" style="margin-top: 0.5rem; font-size: 0.85rem; font-weight: 600;"></p>
+            <button id="removeCouponBtn" onclick="removeCoupon()" style="display: none; background: transparent; border: none; color: #ef4444; text-decoration: underline; cursor: pointer; font-size: 0.8rem; margin-top: 0.5rem;">Remove Coupon</button>
         </div>
 
-        <div
-            style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 15px; border: 1px solid #ddd; text-align: left;">
-            <h4 style="margin: 0 0 10px 0; color: #333;">📦 Delivery & Tracking</h4>
-            <p style="color: #28a745; font-weight: bold; margin: 0 0 5px 0;">🚚 Estimated Delivery Time: 30-45 Mins</p>
-            <p style="margin: 0; font-size: 13px; color: #666;">Basic order tracking is available in your <a
-                    href="javascript:void(0)" onclick="if(currentUser){showOrdersModal()}else{showAuthModal()}"
-                    style="color: #007bff; text-decoration: underline;">Orders & Tracking</a> dashboard after checkout.
-            </p>
+        <div style="background: var(--primary-light); padding: 1.25rem; border-radius: 12px; margin-bottom: 2rem; border-left: 4px solid var(--primary);">
+            <h4 style="margin: 0 0 5px 0; color: var(--primary-dark); font-size: 1rem;">🚀 Lightning Fast Delivery</h4>
+            <p style="color: var(--primary); font-weight: 800; margin: 0 0 5px 0; font-size: 0.9rem;">Arriving in 30-45 Mins</p>
+            <p style="margin: 0; font-size: 0.85rem; color: var(--primary-dark); opacity: 0.8;">Fresh snacks delivered right to your door.</p>
         </div>
 
-        <div class="payment-form" id="paymentForm" style="display:none;">
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="tel" id="phone" placeholder="Phone Number" required>
+        <div class="payment-form" id="paymentForm" style="display:none; animation: fadeIn 0.4s ease;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                <input type="email" id="email" placeholder="Email Address" required>
+                <input type="tel" id="phone" placeholder="Phone Number" required>
+            </div>
 
             <!-- Address Section -->
-            <div id="addressSection" style="text-align: left; margin: 10px 0;">
-                <label id="savedAddressesLabel" style="display:none; font-size:14px; margin-bottom:5px;">Select Saved
-                    Address:</label>
-                <select id="savedAddresses"
-                    style="display:none; width:100%; padding:8px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;"
-                    onchange="fillAddress()">
-                    <option value="">-- Or enter new address --</option>
+            <div id="addressSection" style="text-align: left; margin-bottom: 1.5rem;">
+                <label id="savedAddressesLabel" style="display:none; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Select Saved Address</label>
+                <select id="savedAddresses" style="display:none; width:100%; margin-bottom: 1rem;" onchange="fillAddress()">
+                    <option value="">-- Use a new address --</option>
                 </select>
-                <textarea id="address" placeholder="Delivery Address" required
-                    style="width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; resize: vertical; min-height: 60px; font-family: inherit; font-size: 14px;"></textarea>
+                <textarea id="address" placeholder="Complete Delivery Address" required style="width: 100%; min-height: 80px;"></textarea>
             </div>
 
             <!-- Payment Method Selection -->
-            <div class="payment-methods">
-                <label>
-                    <input type="radio" name="paymentMethod" value="razorpay" checked>
-                    💳 Razorpay (Card/Online)
+            <div class="payment-methods" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                <label style="background: var(--bg-main); padding: 1.5rem; border-radius: 12px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s ease; display: flex; align-items: center; gap: 0.75rem;">
+                    <input type="radio" name="paymentMethod" value="razorpay" checked style="width: auto;">
+                    <span style="font-weight: 700;">💳 Card / Online</span>
                 </label>
-                <label>
-                    <input type="radio" name="paymentMethod" value="upi">
-                    📱 UPI (QR Code)
+                <label style="background: var(--bg-main); padding: 1.5rem; border-radius: 12px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s ease; display: flex; align-items: center; gap: 0.75rem;">
+                    <input type="radio" name="paymentMethod" value="upi" style="width: auto;">
+                    <span style="font-weight: 700;">📱 UPI / QR</span>
                 </label>
             </div>
 
-            <!-- Razorpay Button -->
-            <button id="razorpayBtn" onclick="processRazorpayPayment()">Pay with Razorpay</button>
-
-            <!-- UPI QR Button -->
-            <button id="upiBtn" style="display:none;" onclick="generateUPIQR()">Generate UPI QR Code</button>
+            <!-- Payment Buttons -->
+            <button id="razorpayBtn" onclick="processRazorpayPayment()" style="width: 100%; padding: 1.25rem; font-size: 1.1rem; background: var(--premium-gradient);">Pay Securely with Razorpay</button>
+            <button id="upiBtn" style="display:none; width: 100%; padding: 1.25rem; font-size: 1.1rem; background: var(--premium-gradient);" onclick="generateUPIQR()">Generate Payment QR Code</button>
         </div>
 
         <!-- QR Code Display -->
-        <div id="qrCodeContainer"
-            style="display:none; background: white; padding: 20px; border-radius: 8px; max-width: 400px; margin: 20px auto;">
-            <h3>📱 Scan QR Code to Pay</h3>
-            <img id="qrCodeImage" src="" alt="UPI QR Code"
-                style="width: 250px; height: 250px; margin: 20px 0; border: 2px solid #ddd; padding: 10px;">
-            <p id="qrMessage"></p>
-            <button onclick="confirmUPIPayment()" style="background: green; width: 100%; margin-top: 10px;">✅ Payment
-                Done</button>
-            <button onclick="backToPayment()" style="background: gray; width: 100%; margin-top: 10px;">← Back</button>
+        <div id="qrCodeContainer" style="display:none; text-align: center; padding: 2rem; border: 2px dashed #e2e8f0; border-radius: 20px; margin: 2rem 0;">
+            <h3 style="margin-bottom: 1.5rem;">Scan & Pay</h3>
+            <img id="qrCodeImage" src="" alt="UPI QR Code" style="width: 250px; height: 250px; margin-bottom: 1.5rem; border: 1px solid #eee; padding: 10px; border-radius: 12px;">
+            <p id="qrMessage" style="font-weight: 600; color: var(--text-muted); margin-bottom: 1.5rem;"></p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <button onclick="confirmUPIPayment()" style="background: var(--primary); color: white;">✅ Payment Done</button>
+                <button onclick="backToPayment()" style="background: var(--bg-main); color: var(--text-main);">← Back</button>
+            </div>
         </div>
 
-        <button id="payButton" onclick="showPaymentForm()">Proceed to Checkout</button>
+        <button id="payButton" onclick="showPaymentForm()" style="width: 100%; padding: 1.25rem; font-size: 1.1rem; background: var(--accent); color: white; border-radius: 12px; font-weight: 700; transition: all 0.3s ease;">Proceed to Secure Checkout</button>
     </div>
     </div>
 
     <!-- Auth Modal -->
-    <div id="authModal"
-        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
-        <div
-            style="background:white; padding:30px; border-radius:10px; width:90%; max-width:400px; text-align:center; position:relative;">
-            <span onclick="closeAuthModal()"
-                style="position:absolute; top:10px; right:15px; cursor:pointer; font-size:20px;">✖</span>
-            <h2 id="authTitle" style="margin-top:0;">Login</h2>
-            <form id="authForm" onsubmit="handleAuth(event)"
-                style="display:flex; flex-direction:column; gap:15px; margin-top:20px;">
-                <input type="text" id="authName" placeholder="Full Name (for Sign Up only)"
-                    style="display:none; padding:10px; border:1px solid #ccc; border-radius:5px;">
-                <input type="email" id="authEmail" placeholder="Email" required
-                    style="padding:10px; border:1px solid #ccc; border-radius:5px;">
-                <input type="password" id="authPassword" placeholder="Password" required
-                    style="padding:10px; border:1px solid #ccc; border-radius:5px;">
-                <button type="submit" id="authSubmitBtn" style="background:#007bff;">Login</button>
+    <div id="authModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(17, 24, 39, 0.8); z-index:9999; justify-content:center; align-items:center; backdrop-filter: blur(8px);">
+        <div style="background:white; padding:3rem; border-radius:24px; width:90%; max-width:450px; text-align:center; position:relative; box-shadow: var(--shadow-xl);">
+            <span onclick="closeAuthModal()" style="position:absolute; top:1.5rem; right:1.5rem; cursor:pointer; font-size:1.5rem; color: var(--text-muted);">✕</span>
+            <h2 id="authTitle" style="margin-bottom: 0.5rem; font-size: 2rem;">Welcome Back</h2>
+            <p id="authSubtitle" style="color: var(--text-muted); margin-bottom: 2rem;">Please enter your details to continue</p>
+            
+            <form id="authForm" onsubmit="handleAuth(event)" style="display:flex; flex-direction:column; gap:1.25rem;">
+                <input type="text" id="authName" placeholder="Your Full Name" style="display:none;">
+                <input type="email" id="authEmail" placeholder="Email Address" required>
+                <input type="password" id="authPassword" placeholder="Password" required>
+                <button type="submit" id="authSubmitBtn" style="background: var(--accent); color: white; padding: 1rem; border-radius: 12px; font-weight: 700; font-size: 1rem; margin-top: 1rem;">Sign In</button>
             </form>
-            <p style="margin-top:15px; font-size:14px;">
-                <span id="authToggleText">Don't have an account?</span>
-                <a href="javascript:void(0)" onclick="toggleAuthMode()"
-                    style="color:#007bff; text-decoration:none; font-weight:bold;" id="authToggleLink">Sign Up</a>
+            
+            <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted);">
+                <span id="authToggleText">New to Lav Mart?</span>
+                <a href="javascript:void(0)" onclick="toggleAuthMode()" style="color: var(--primary); text-decoration: none; font-weight: 700; margin-left: 0.5rem;" id="authToggleLink">Create Account</a>
             </p>
         </div>
     </div>

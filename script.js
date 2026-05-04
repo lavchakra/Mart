@@ -74,6 +74,7 @@ function saveCart(cart) {
 document.addEventListener('DOMContentLoaded', () => {
   updateUserUI();
   attachProductClickEvents();
+  initScrollReveal();
   
   // Add payment method change listener
   const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
@@ -83,6 +84,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// Scroll Reveal Initialization
+function initScrollReveal() {
+  const revealElements = document.querySelectorAll('[data-reveal]');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+  
+  revealElements.forEach(el => observer.observe(el));
+}
 
 // Update button visibility based on payment method
 function updatePaymentButtonVisibility(method) {
@@ -610,51 +628,34 @@ async function loadProductsFrontEnd() {
     products.forEach(p => {
       const card = document.createElement('div');
       card.className = 'card';
-      if (p.borderColor) card.style.border = `2px solid ${p.borderColor}`;
-      else card.style.position = 'relative';
       
       let badgeHtml = '';
       if (p.badge) {
         const badgeBg = p.badgeBg || p.badgeColor || '#dc3545';
-        const badgeColor = p.badgeBg ? (p.badgeColor || '#333') : 'white';
-        
-        badgeHtml = `<div style="position: absolute; top: -10px; right: -10px; background: ${badgeBg}; color: ${badgeColor}; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; transform: rotate(15deg); box-shadow: 0 2px 5px rgba(0,0,0,0.2);">${p.badge}</div>`;
-        
-        if (p.badge.includes('DEAL')) {
-          badgeHtml = `<div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: ${badgeBg}; color: ${badgeColor}; padding: 5px 15px; border-radius: 15px; font-size: 11px; font-weight: bold; white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">${p.badge}</div>`;
-        }
+        badgeHtml = `<div class="badge" style="background: ${badgeBg}; color: white;">${p.badge}</div>`;
       }
       
-      let priceHtml = `₹${p.price}`;
+      let priceHtml = `<span class="price">₹${p.price}</span>`;
       if (p.originalPrice) {
-        priceHtml = `<span style="text-decoration: line-through; color: #888; font-size: 14px;">₹${p.originalPrice}</span> <span style="color: ${p.badgeColor || '#dc3545'}; font-size: 20px;">₹${p.price}</span>`;
-      } else {
-        priceHtml = `₹${p.price}`;
+        priceHtml = `<span class="original-price">₹${p.originalPrice}</span> <span class="price">₹${p.price}</span>`;
       }
       
-      let imageUrl = p.image || 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=400&q=80';
-      const lowerName = p.name.toLowerCase();
-      if (!p.image) {
-        if (lowerName.includes('bhujia') || lowerName.includes('sev') || lowerName.includes('fafda') || lowerName.includes('ganthiya')) {
-          imageUrl = 'https://images.unsplash.com/photo-1589301760014-d929f39ce9de?auto=format&fit=crop&w=400&q=80';
-        } else if (lowerName.includes('peanut')) {
-          imageUrl = 'https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?auto=format&fit=crop&w=400&q=80';
-        } else if (lowerName.includes('mix') || lowerName.includes('chivda')) {
-          imageUrl = 'https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=400&q=80';
-        } else if (lowerName.includes('chips')) {
-          imageUrl = 'https://images.unsplash.com/photo-1621852004158-f3bc188ace2d?auto=format&fit=crop&w=400&q=80';
-        }
-      }
+      let imageUrl = p.image || 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80';
       
       const btnName = p.badge ? `${p.name} (${p.badge.replace(/[^\w\s]/gi, '').trim()})` : p.name;
       
       card.innerHTML = `
         ${badgeHtml}
-        <img src="${imageUrl}" alt="${p.name}" class="product-img">
-        <h3 style="margin-top: ${p.badge && p.badge.includes('DEAL') ? '5px' : '10px'};">${p.name}</h3>
-        <p>${priceHtml}</p>
+        <div class="product-img-wrapper">
+          <img src="${imageUrl}" alt="${p.name}" class="product-img">
+        </div>
+        <h3>${p.name}</h3>
+        <div class="price-box">
+          ${priceHtml}
+        </div>
         <button onclick="addToCart('${btnName}', ${p.price})" class="add-btn">Add to Cart</button>
       `;
+      card.setAttribute('data-reveal', '');
       
       container.appendChild(card);
     });
@@ -662,6 +663,7 @@ async function loadProductsFrontEnd() {
     // Now that product H3s exist, we can inject reviews
     loadReviewSummaries();
     attachProductClickEvents();
+    initScrollReveal(); // Re-init for new elements
   } catch (e) {
     console.error('Failed to load products', e);
     container.innerHTML = '<p style="grid-column: 1 / -1; color: red;">Error loading products. Please try again later.</p>';

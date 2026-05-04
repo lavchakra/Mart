@@ -122,6 +122,8 @@ async function editProduct(id) {
             document.getElementById('prodPrice').value = product.price;
             document.getElementById('prodOriginalPrice').value = product.originalPrice || '';
             document.getElementById('prodBadge').value = product.badge || '';
+            document.getElementById('prodImage').value = product.image || '';
+            updateImagePreview(product.image || '');
             
             document.getElementById('productModalTitle').textContent = 'Edit Product';
             document.getElementById('productModal').style.display = 'flex';
@@ -143,12 +145,13 @@ async function saveProduct(e) {
     const price = document.getElementById('prodPrice').value;
     const originalPrice = document.getElementById('prodOriginalPrice').value;
     const badge = document.getElementById('prodBadge').value;
+    const image = document.getElementById('prodImage').value;
     
     try {
         await fetch('/api/admin/products', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, name, price, originalPrice, badge })
+            body: JSON.stringify({ id, name, price, originalPrice, badge, image })
         });
         
         closeProductModal();
@@ -167,6 +170,15 @@ async function deleteProduct(id) {
         } catch (e) {
             console.error('Failed to delete', e);
         }
+    }
+}
+
+function updateImagePreview(url) {
+    const preview = document.getElementById('imagePreview');
+    if (url) {
+        preview.innerHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:cover;">`;
+    } else {
+        preview.innerHTML = `<span style="color:#999; font-size:12px;">No Preview Available</span>`;
     }
 }
 

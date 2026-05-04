@@ -6,22 +6,25 @@
     <title>Admin Dashboard - Lav Mart</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        body { text-align: left; padding: 0; margin: 0; background: #f4f6f8; font-family: 'Segoe UI', Arial, sans-serif; }
-        .sidebar { width: 250px; background: #222; color: white; height: 100vh; position: fixed; padding: 20px; box-sizing: border-box; }
-        .sidebar h2 { color: #fff; margin-top: 0; }
+        body { text-align: left; padding: 0; margin: 0; background: #f8fafc; font-family: 'Outfit', sans-serif; }
+        .sidebar { width: 250px; background: #064e3b; color: white; height: 100vh; position: fixed; padding: 20px; box-sizing: border-box; }
+        .sidebar h2 { color: #fff; margin-top: 0; font-family: 'Outfit', sans-serif; letter-spacing: -0.5px; }
         .sidebar ul { list-style: none; padding: 0; }
-        .sidebar ul li { padding: 15px 10px; border-bottom: 1px solid #444; cursor: pointer; transition: 0.3s; }
-        .sidebar ul li:hover, .sidebar ul li.active { background: #007bff; }
+        .sidebar ul li { padding: 15px 10px; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; font-weight: 500; }
+        .sidebar ul li:hover, .sidebar ul li.active { background: #10b981; }
         .main-content { margin-left: 250px; padding: 30px; }
-        .panel { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .panel { display: none; background: white; padding: 25px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .panel.active { display: block; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #f8f9fa; }
-        button.action-btn { padding: 5px 10px; font-size: 12px; margin-right: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; border-radius: 12px; overflow: hidden; }
+        th, td { border: 1px solid #f1f5f9; padding: 12px; text-align: left; }
+        th { background-color: #f8fafc; color: #64748b; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+        button.action-btn { padding: 6px 12px; font-size: 12px; margin-right: 5px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; }
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .form-group input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #334155; }
+        .form-group input { width: 100%; padding: 12px; box-sizing: border-box; border: 1px solid #e2e8f0; border-radius: 8px; font-family: 'Outfit', sans-serif; }
+        .form-group input:focus { outline: none; border-color: #10b981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.1); }
+        button[type="submit"], button[onclick*="showAdd"] { background: #10b981; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
     </style>
 </head>
 <body>
@@ -41,17 +44,17 @@
     <div id="dashboard" class="panel active">
         <h2>Dashboard Overview</h2>
         <div style="display:flex; gap:20px; margin-top:20px;">
-            <div style="background:#17a2b8; color:white; padding:20px; border-radius:8px; flex:1;">
-                <h3>Total Orders</h3>
-                <h2 id="dashOrders">0</h2>
+            <div style="background:#ecfdf5; color:#065f46; padding:25px; border-radius:16px; flex:1; border: 1px solid #d1fae5;">
+                <h3 style="margin-top:0; font-size:14px; opacity:0.8;">Total Orders</h3>
+                <h2 id="dashOrders" style="margin:10px 0 0; font-size:32px;">0</h2>
             </div>
-            <div style="background:#28a745; color:white; padding:20px; border-radius:8px; flex:1;">
-                <h3>Total Revenue</h3>
-                <h2 id="dashRevenue">₹0</h2>
+            <div style="background:#f0f9ff; color:#075985; padding:25px; border-radius:16px; flex:1; border: 1px solid #e0f2fe;">
+                <h3 style="margin-top:0; font-size:14px; opacity:0.8;">Total Revenue</h3>
+                <h2 id="dashRevenue" style="margin:10px 0 0; font-size:32px;">₹0</h2>
             </div>
-            <div style="background:#ffc107; color:#333; padding:20px; border-radius:8px; flex:1;">
-                <h3>Registered Users</h3>
-                <h2 id="dashUsers">0</h2>
+            <div style="background:#fff7ed; color:#9a3412; padding:25px; border-radius:16px; flex:1; border: 1px solid #ffedd5;">
+                <h3 style="margin-top:0; font-size:14px; opacity:0.8;">Registered Users</h3>
+                <h2 id="dashUsers" style="margin:10px 0 0; font-size:32px;">0</h2>
             </div>
         </div>
     </div>
