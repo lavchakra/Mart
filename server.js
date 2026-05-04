@@ -115,28 +115,36 @@ function verifyPassword(password, salt, hash) {
   return hash === verifyHash;
 }
 
+// Normalize email addresses for consistent lookups
+function normalizeEmail(email) {
+  if (!email) return '';
+  return String(email).trim().toLowerCase();
+}
+
 // API: Signup
 app.post('/api/auth/signup', (req, res) => {
   const { email, password, name } = req.body;
-  if (!email || !password) return res.status(400).json({ error: 'Email and password required' });
-  if (users[email]) return res.status(400).json({ error: 'User already exists' });
+  const emailKey = normalizeEmail(email);
+  if (!emailKey || !password) return res.status(400).json({ error: 'Email and password required' });
+  if (users[emailKey]) return res.status(400).json({ error: 'User already exists' });
   
   const { salt, hash } = hashPassword(password);
   
-  users[email] = { email, salt, hash, name, addresses: [] };
+  users[emailKey] = { email: emailKey, salt, hash, name, addresses: [] };
   schedulePersist();
-  res.json({ message: 'Signup successful', user: { email, name, addresses: [] } });
+  res.json({ message: 'Signup successful', user: { email: emailKey, name, addresses: [] } });
 });
 
 // API: Login
 app.post('/api/auth/login', (req, res) => {
   const { email, password } = req.body;
-  const user = users[email];
+  const emailKey = normalizeEmail(email);
+  const user = users[emailKey];
   
   if (!user) return res.status(401).json({ error: 'Invalid credentials' });
   
   // Backward compatibility for existing plaintext passwords
-  if (user.password && user.password === password) {
+    if (user.password && user.password === password) {
     const { salt, hash } = hashPassword(password);
     user.salt = salt;
     user.hash = hash;
@@ -150,13 +158,14 @@ app.post('/api/auth/login', (req, res) => {
     return res.status(401).json({ error: 'Invalid credentials' });
   }
   
-  res.json({ message: 'Login successful', user: { email, name: user.name, addresses: user.addresses } });
+  res.json({ message: 'Login successful', user: { email: user.email || emailKey, name: user.name, addresses: user.addresses } });
 });
 
 // API: Add/Update address
 app.post('/api/users/:email/addresses', (req, res) => {
   const { address } = req.body;
-  const user = users[req.params.email];
+  const emailKey = normalizeEmail(req.params.email);
+  const user = users[emailKey];
   if (!user) return res.status(404).json({ error: 'User not found' });
   
   if (address && !user.addresses.includes(address)) {

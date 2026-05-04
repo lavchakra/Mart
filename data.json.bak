@@ -1,0 +1,67 @@
+{
+  "carts": {
+    "user_test": {
+      "items": [
+        {
+          "id": "1f8a1dad-10af-4a53-840d-d04b77727ed7",
+          "name": "Aloo",
+          "price": 30
+        },
+        {
+          "id": "77decfee-a3e8-4186-ace0-4944a65911d8",
+          "name": "B",
+          "price": 1
+        },
+        {
+          "id": "133ec351-d48b-4c41-8654-731cb820cffe",
+          "name": "Aloo",
+          "price": 30
+        }
+      ],
+      "total": 61
+    },
+    "user_mzio4okos": {
+      "items": [],
+      "total": 0
+    },
+    "user_wqblkz1yj": {
+      "items": [
+        {
+          "id": "c297beec-2cd4-4f8b-9d2c-8c88c0ae4712",
+          "name": "Papdi Gathiya",
+          "price": 28
+        }
+      ],
+      "total": 28
+    },
+    "lavchakradhari31@gmail.com": {
+      "items": [],
+      "total": 0
+    }
+  },
+  "orders": {},
+  "users": {
+    "test@test.com": {
+      "email": "test@test.com",
+      "salt": "9c938c24dee5a124b9e8fb5e3bb3a32a",
+      "hash": "203ca60db29056f199392d7d3e55ecfb073fdfe071bcef691000e2b6981abc2e78d2abfbe1484a7cc70b29c55c2605b03fad103f610b7a53cf105ae9e94dda32",
+      "name": "Test User",
+      "addresses": []
+    },
+    "lavchakradhari31@gmail.com": {
+      "email": "lavchakradhari31@gmail.com",
+      "salt": "f837c881476cf6575a45ad0f9e8fb048",
+      "hash": "c1b09799da7f756b8069fc0b5f730728939aa4f0409bf41f7636ae793a998c5c5bdc8c17be94fb59218d88452eb514c77697de4667f8039fab5059ee491b910d",
+      "name": "Lavchakradhari",
+      "addresses": []
+    },
+    "testcase@example.com": {
+      "email": "testcase@example.com",
+      "salt": "91f2c639807b812804a22551e9eb3356",
+      "hash": "271405728d67784872413d9369346c3331980ebd58709395cd3df01a4aa77bfd776a34811aac78887906281d38d31a8aca05641d50613ce842b3d48da447f310",
+      "name": "Case Test",
+      "addresses": []
+    }
+  },
+  "reviews": {}
+}
