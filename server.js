@@ -9,7 +9,7 @@ const fs = require('fs');
 const https = require('https');
 
 const app = express();
-const HOST = process.env.HOST || '127.0.0.1';
+const HOST = process.env.HOST || '0.0.0.0'; // Changed from 127.0.0.1 to allow better connectivity
 const PORT = Number(process.env.PORT) || 3002;
 
 // Middleware
@@ -49,6 +49,33 @@ let orders = {}; // Store orders
 let users = {}; // Store user accounts
 let reviews = {}; // Store product reviews
 
+let products = [
+  { id: "p1", name: "Aloo Bhujia (Sale)", price: 22, originalPrice: 30, badge: "🔥 SALE!", badgeColor: "#dc3545", image: "aloo_bhujia.png" },
+  { id: "p2", name: "Bikaneri Bhujia", price: 35, image: "https://images.unsplash.com/photo-1589301760014-d929f39ce9de?auto=format&fit=crop&w=800&q=80" },
+  { id: "p3", name: "Ratlami Sev", price: 25, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
+  { id: "p4", name: "Nylon Sev", price: 28, image: "https://images.unsplash.com/photo-1613292443284-8d10ef9383fe?auto=format&fit=crop&w=800&q=80" },
+  { id: "p5", name: "Khatta Meetha Mix", price: 40, image: "https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=800&q=80" },
+  { id: "p6", name: "Bombay Mix", price: 45, image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80" },
+  { id: "p7", name: "Navratan Mixture", price: 50, image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80" },
+  { id: "p8", name: "Chivda (Poha Mix)", price: 35, image: "https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=800&q=80" },
+  { id: "p9", name: "Moong Dal Namkeen", price: 30, image: "https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?auto=format&fit=crop&w=800&q=80" },
+  { id: "p10", name: "Masala Peanuts", price: 35, image: "https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?auto=format&fit=crop&w=800&q=80" },
+  { id: "p11", name: "Salted Peanuts", price: 28, image: "https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?auto=format&fit=crop&w=800&q=80" },
+  { id: "p12", name: "Hing Sev", price: 32, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
+  { id: "p13", name: "Tikha Sev", price: 30, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
+  { id: "p14", name: "Cornflakes Mixture", price: 40, image: "https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=800&q=80" },
+  { id: "p15", name: "Dry Fruit Mixture (Deal)", price: 55, originalPrice: 80, badge: "⏳ LIMITED TIME DEAL", badgeColor: "#333", badgeBg: "#ffc107", borderColor: "#ffc107", image: "https://images.unsplash.com/photo-1511018556340-d16986a1c194?auto=format&fit=crop&w=800&q=80" },
+  { id: "p16", name: "Bhakarwadi", price: 25, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
+  { id: "p17", name: "Mini Samosa Namkeen", price: 35, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
+  { id: "p18", name: "Papdi Gathiya", price: 28, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
+  { id: "p19", name: "Methi Mathri", price: 32, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
+  { id: "p20", name: "Jeera Khari Mix", price: 36, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
+  { id: "p21", name: "Fafda", price: 40, badge: "⭐ POPULAR", badgeBg: "#17a2b8", badgeColor: "white", image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
+  { id: "p22", name: "Banana Chips", price: 45, image: "https://images.unsplash.com/photo-1621852004158-f3bc188ace2d?auto=format&fit=crop&w=800&q=80" },
+  { id: "p23", name: "Soya Sticks", price: 30, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
+  { id: "p24", name: "Ganthiya", price: 35, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" }
+];
+
 const DATA_FILE = process.env.DATA_FILE || path.join(__dirname, 'data.json');
 let persistTimer = null;
 
@@ -63,6 +90,7 @@ function loadPersistedData() {
       orders = parsed.orders && typeof parsed.orders === 'object' ? parsed.orders : orders;
       users = parsed.users && typeof parsed.users === 'object' ? parsed.users : users;
       reviews = parsed.reviews && typeof parsed.reviews === 'object' ? parsed.reviews : reviews;
+      if (parsed.products && Array.isArray(parsed.products)) products = parsed.products;
     }
   } catch (err) {
     console.error('Failed to load persisted data:', err);
@@ -72,7 +100,7 @@ function loadPersistedData() {
 function persistNow() {
   try {
     const tmp = `${DATA_FILE}.tmp`;
-    const payload = JSON.stringify({ carts, orders, users, reviews }, null, 2);
+    const payload = JSON.stringify({ carts, orders, users, reviews, products }, null, 2);
     fs.writeFileSync(tmp, payload);
     fs.renameSync(tmp, DATA_FILE);
   } catch (err) {
@@ -465,37 +493,7 @@ app.get('/api/orders/user/:userId', (req, res) => {
   res.json(userOrders);
 });
 
-// --- Admin API ---
-let products = [
-  { id: "p1", name: "Aloo Bhujia (Sale)", price: 22, originalPrice: 30, badge: "🔥 SALE!", badgeColor: "#dc3545", image: "aloo_bhujia.png" },
-  { id: "p2", name: "Bikaneri Bhujia", price: 35, image: "https://images.unsplash.com/photo-1589301760014-d929f39ce9de?auto=format&fit=crop&w=800&q=80" },
-  { id: "p3", name: "Ratlami Sev", price: 25, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
-  { id: "p4", name: "Nylon Sev", price: 28, image: "https://images.unsplash.com/photo-1613292443284-8d10ef9383fe?auto=format&fit=crop&w=800&q=80" },
-  { id: "p5", name: "Khatta Meetha Mix", price: 40, image: "https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=800&q=80" },
-  { id: "p6", name: "Bombay Mix", price: 45, image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=800&q=80" },
-  { id: "p7", name: "Navratan Mixture", price: 50, image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80" },
-  { id: "p8", name: "Chivda (Poha Mix)", price: 35, image: "https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=800&q=80" },
-  { id: "p9", name: "Moong Dal Namkeen", price: 30, image: "https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?auto=format&fit=crop&w=800&q=80" },
-  { id: "p10", name: "Masala Peanuts", price: 35, image: "https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?auto=format&fit=crop&w=800&q=80" },
-  { id: "p11", name: "Salted Peanuts", price: 28, image: "https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?auto=format&fit=crop&w=800&q=80" },
-  { id: "p12", name: "Hing Sev", price: 32, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
-  { id: "p13", name: "Tikha Sev", price: 30, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
-  { id: "p14", name: "Cornflakes Mixture", price: 40, image: "https://images.unsplash.com/photo-1605807646983-377bc5a76493?auto=format&fit=crop&w=800&q=80" },
-  { id: "p15", name: "Dry Fruit Mixture (Deal)", price: 55, originalPrice: 80, badge: "⏳ LIMITED TIME DEAL", badgeColor: "#333", badgeBg: "#ffc107", borderColor: "#ffc107", image: "https://images.unsplash.com/photo-1511018556340-d16986a1c194?auto=format&fit=crop&w=800&q=80" },
-  { id: "p16", name: "Bhakarwadi", price: 25, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
-  { id: "p17", name: "Mini Samosa Namkeen", price: 35, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
-  { id: "p18", name: "Papdi Gathiya", price: 28, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
-  { id: "p19", name: "Methi Mathri", price: 32, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
-  { id: "p20", name: "Jeera Khari Mix", price: 36, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
-  { id: "p21", name: "Fafda", price: 40, badge: "⭐ POPULAR", badgeBg: "#17a2b8", badgeColor: "white", image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
-  { id: "p22", name: "Banana Chips", price: 45, image: "https://images.unsplash.com/photo-1621852004158-f3bc188ace2d?auto=format&fit=crop&w=800&q=80" },
-  { id: "p23", name: "Soya Sticks", price: 30, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" },
-  { id: "p24", name: "Ganthiya", price: 35, image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80" }
-];
-
-// In loadPersistedData, we could also load products if we saved them
-// but for simplicity we'll just keep them in memory for this session
-
+// API: Products
 app.get('/api/admin/products', (req, res) => res.json(products));
 
 app.post('/api/admin/products', (req, res) => {
@@ -577,3 +575,9 @@ if (sslOptions) {
     printServerInfo('http');
   });
 }
+
+// Global error handler for debugging
+app.use((err, req, res, next) => {
+  console.error('SERVER ERROR:', err.stack);
+  res.status(500).json({ error: 'Internal Server Error', message: err.message });
+});
