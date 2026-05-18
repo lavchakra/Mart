@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lav Mart — Other Items</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="navbar">
+        <h2>🛍️ Lav Mart</h2>
+        <div id="userSection" style="display: flex; gap: 10px; align-items: center;">
+            <a href="index.html" style="color: white; text-decoration: none; padding: 5px 10px; background: transparent;">Home</a>
+            <span style="color: white; font-weight: bold;">|</span>
+            <a href="other-items.html" style="color: white; text-decoration: none; padding: 5px 10px; background: rgba(255,255,255,0.06); border-radius:6px;">Other Items</a>
+            <button id="loginBtn" onclick="showAuthModal()" style="padding: 5px 10px; font-size: 12px; background: #007bff;">Login</button>
+        </div>
+    </div>
+
+    <main style="padding: 2rem; max-width: 1000px; margin: 0 auto;">
+        <h1>Other Items</h1>
+        <p>Shop items not listed on the main page — curated extras.</p>
+
+        <div id="otherProducts" class="products" style="margin-top: 1.5rem;">
+            <!-- Products injected by other-items.js -->
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="other-items.js"></script>
+</body>
+</html>

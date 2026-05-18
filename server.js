@@ -20,6 +20,9 @@ app.use(express.json());
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/style.css', (req, res) => res.sendFile(path.join(__dirname, 'style.css')));
 app.get('/script.js', (req, res) => res.sendFile(path.join(__dirname, 'script.js')));
+// Serve the new Other Items page and its script
+app.get('/other-items.html', (req, res) => res.sendFile(path.join(__dirname, 'other-items.html')));
+app.get('/other-items.js', (req, res) => res.sendFile(path.join(__dirname, 'other-items.js')));
 
 // Serve image files safely
 app.get(/\.(png|jpg|jpeg|gif|webp)$/i, (req, res) => {

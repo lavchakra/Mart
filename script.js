@@ -691,6 +691,13 @@ function updateUserUI() {
     
     if (landingPage) landingPage.style.display = 'none';
     if (storeContent) storeContent.style.display = 'block';
+
+    // Show inline other-items sections (if any) and render them
+    const inlineTargets = document.querySelectorAll('.other-products-target');
+    inlineTargets.forEach(el => el.style.display = 'block');
+    if (typeof window.renderOtherProducts === 'function') {
+      try { window.renderOtherProducts(); } catch (e) { console.error(e); }
+    }
   } else {
     userDisplay.textContent = '';
     loginBtn.style.display = 'inline-block';
@@ -699,6 +706,10 @@ function updateUserUI() {
     
     if (landingPage) landingPage.style.display = 'flex';
     if (storeContent) storeContent.style.display = 'none';
+
+    // Hide inline other-items when logged out
+    const inlineTargets = document.querySelectorAll('.other-products-target');
+    inlineTargets.forEach(el => el.style.display = 'none');
   }
 }
 
